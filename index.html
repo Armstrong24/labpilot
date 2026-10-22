@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LabPilot: screenshots in, submission-ready lab report out</title>
+  <meta name="description" content="Upload your lab checklist and screenshots in any order. LabPilot matches each screenshot to its step, flags what's missing, and builds a formatted DOCX report. Runs in your browser with your own Gemini key." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%234f46e5'/><path d='M9 22l5-12 4 8 2-4 3 8' stroke='white' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#4f46e5"/><path d="M9 22l5-12 4 8 2-4 3 8" stroke="white" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="brand-name">LabPilot</span>
+      <span class="mode-pill" id="modePill" hidden>Demo mode · sample data</span>
+    </div>
+    <div class="top-actions">
+      <button class="btn ghost" id="openSettings" type="button">⚙ Settings</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <h1>Turn a messy lab folder into a <span class="hl">submission-ready report</span>.</h1>
+      <p>Drop in the assignment and your screenshots, in any order. LabPilot reads every screenshot, puts it under the right step, tells you which steps have no proof yet, and writes a short explanation for each one using only what the screenshots show. Then you download a formatted DOCX.</p>
+      <div class="hero-cta">
+        <button class="btn primary lg" id="tryDemo" type="button">▶ Try the demo (no key needed)</button>
+        <span class="muted small">Sample AWS EC2 + S3 lab with 11 screenshots: 2 steps have no screenshot and 1 image doesn't belong.</span>
+      </div>
+    </section>
+
+    <ol class="stepper" id="stepper" aria-label="Progress">
+      <li data-step="1" class="active"><span>1</span> Upload</li>
+      <li data-step="2"><span>2</span> Review</li>
+      <li data-step="3"><span>3</span> Download</li>
+    </ol>
+
+    <!-- STEP 1 -->
+    <section class="panel" id="panel1">
+      <div class="grid2">
+        <div class="card">
+          <div class="card-head"><h2>Assignment</h2><span class="muted small">DOCX, PDF, TXT or paste</span></div>
+          <label class="drop" id="docDrop">
+            <input type="file" id="docInput" accept=".docx,.pdf,.txt,.md,text/plain,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden />
+            <strong>Drop the checklist or problem statement</strong>
+            <span class="muted small">or click to choose a file</span>
+          </label>
+          <textarea id="checklistText" rows="9" placeholder="…or paste the steps here, e.g.&#10;1. Launch an EC2 instance (t2.micro)&#10;2. Configure the security group for SSH and HTTP&#10;3. Connect over SSH"></textarea>
+          <div class="parse-status small" id="parseStatus">No steps found yet.</div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Screenshots</h2><span class="muted small" id="shotCount">0 images</span></div>
+          <label class="drop" id="imgDrop">
+            <input type="file" id="imgInput" accept="image/png,image/jpeg,image/webp" multiple hidden />
+            <strong>Drop all your screenshots, any order</strong>
+            <span class="muted small">PNG, JPG or WebP. They are resized in your browser before upload.</span>
+          </label>
+          <div class="thumbs" id="thumbs"></div>
+        </div>
+      </div>
+
+      <details class="card details" id="detailsCard">
+        <summary><h2>Student details <span class="muted small">(goes in the report's header table; optional)</span></h2></summary>
+        <div class="form-grid" id="detailsForm"></div>
+      </details>
+
+      <div class="actions">
+        <div class="error" id="err1" role="alert" hidden></div>
+        <button class="btn primary lg" id="analyzeBtn" type="button">Analyze with Gemini →</button>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="panel" id="panel2" hidden>
+      <div class="demo-note" id="demoNote" hidden>
+        <strong>Demo mode:</strong> the AI output below is precomputed sample data for the bundled sample screenshots. Nothing is sent to Gemini. Everything after this point (matching rules, grounding checks, your edits, the DOCX) is the real app.
+      </div>
+      <div class="summary" id="summary"></div>
+      <div class="card warn-card" id="warnCard"></div>
+      <div id="stepsList"></div>
+      <div class="card" id="unmatchedCard" hidden></div>
+      <div class="grid2">
+        <div class="card"><div class="card-head"><h2>Theory</h2><span class="muted small">editable</span></div><textarea id="theoryText" rows="8"></textarea></div>
+        <div class="card"><div class="card-head"><h2>Conclusion</h2><span class="muted small">editable</span></div><textarea id="conclusionText" rows="8"></textarea></div>
+      </div>
+      <div class="actions spread">
+        <button class="btn ghost" id="back1" type="button">← Back</button>
+        <button class="btn primary lg" id="toStep3" type="button">Build report →</button>
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="panel" id="panel3" hidden>
+      <div class="grid-dl">
+        <div class="card">
+          <div class="card-head"><h2>Your report</h2><span class="muted small" id="dlMeta"></span></div>
+          <label class="check"><input type="checkbox" id="optWarnings" checked /> Include the "Missing evidence and review notes" page</label>
+          <button class="btn primary lg block" id="downloadBtn" type="button">⬇ Download DOCX</button>
+          <p class="muted small" id="dlNote">Built in your browser. Open it in Word or Google Docs, read it through, and fix anything flagged before you submit.</p>
+          <div class="actions spread">
+            <button class="btn ghost" id="back2" type="button">← Back to review</button>
+            <button class="btn ghost" id="startOver" type="button">Start over</button>
+          </div>
+        </div>
+        <div class="card preview-card">
+          <div class="card-head"><h2>Preview</h2><span class="muted small">simplified</span></div>
+          <div class="doc-preview" id="preview"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>LabPilot · built by Arnav Kale for DevSpot Build Mode</span>
+    <span class="muted">Your key and files never leave your browser except in direct calls to Google's Gemini API.</span>
+  </footer>
+
+  <!-- settings dialog -->
+  <dialog id="settings">
+    <form method="dialog" class="dialog-body">
+      <h2>Settings</h2>
+      <label>Gemini API key
+        <input type="password" id="apiKey" autocomplete="off" spellcheck="false" placeholder="Paste your key from Google AI Studio" />
+      </label>
+      <p class="muted small">Stored in <code>sessionStorage</code> only, so it is cleared when you close this tab. It is sent only to <code>generativelanguage.googleapis.com</code>. <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Get a key</a>.</p>
+      <label>Model <select id="modelSel"></select></label>
+      <label>Custom model id <span class="muted small">(optional, overrides the list)</span>
+        <input type="text" id="modelCustom" placeholder="e.g. gemini-3.8-flash" spellcheck="false" />
+      </label>
+      <label>API
+        <select id="apiSel">
+          <option value="interactions">Interactions API (recommended, store=false)</option>
+          <option value="generateContent">generateContent (legacy)</option>
+        </select>
+      </label>
+      <div class="dialog-actions">
+        <button class="btn ghost" value="clear" id="clearKey" type="button">Forget key</button>
+        <button class="btn primary" value="save" id="saveSettings">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- progress overlay -->
+  <div class="overlay" id="overlay" hidden>
+    <div class="overlay-box">
+      <div class="spinner" aria-hidden="true"></div>
+      <h3 id="ovTitle">Working…</h3>
+      <ul id="ovLog" class="ov-log"></ul>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="vendor/docx.umd.js"></script>
+  <script src="vendor/mammoth.browser.min.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/gemini.js"></script>
+  <script src="js/report.js"></script>
+  <script src="js/ingest.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
