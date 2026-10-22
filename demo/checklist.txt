@@ -1,0 +1,18 @@
+Cloud Computing Lab - Experiment 4 (SAMPLE)
+Title: Launch a web server on Amazon EC2 and host a static website on Amazon S3
+Aim: To deploy an Apache web server on an EC2 instance and host a static website using S3 static website hosting.
+
+Take a screenshot for every step.
+
+1. Sign in to the AWS Management Console and open the EC2 dashboard.
+2. Launch an EC2 instance (Amazon Linux 2023, t2.micro) with a new key pair.
+3. Configure the security group to allow SSH (port 22) and HTTP (port 80).
+4. Show the instance in the Running state with its public IPv4 address.
+5. Connect to the instance over SSH using the key pair.
+6. Update packages and install the Apache web server (httpd).
+7. Start and enable the httpd service and verify that it is running.
+8. Create an index.html page and open the instance's public IP in a browser.
+9. Create an S3 bucket with a globally unique name.
+10. Upload index.html and error.html to the bucket.
+11. Enable static website hosting and attach a public-read bucket policy.
+12. Open the S3 website endpoint in a browser and show the page loading.

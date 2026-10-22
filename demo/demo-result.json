@@ -1,0 +1,567 @@
+{
+ "note": "SAMPLE data for Demo Mode. Hand-authored in exactly the format the live Gemini pipeline returns (OBSERVE_SCHEMA + ANALYZE_SCHEMA). Not a recorded live model call.",
+ "details": {
+  "name": "Demo Student",
+  "prn": "0000000000",
+  "roll": "00",
+  "division": "SY B.Tech AI & DS - B",
+  "batch": "B1",
+  "subject": "Cloud Computing Lab",
+  "experiment": "4",
+  "institute": "Vishwakarma University, Pune",
+  "date": "14 Oct 2026"
+ },
+ "images": [
+  {
+   "id": "IMG1",
+   "file": "Screenshot (49).png"
+  },
+  {
+   "id": "IMG2",
+   "file": "IMG_20261014_104112.png"
+  },
+  {
+   "id": "IMG3",
+   "file": "WhatsApp Image 2026-10-14 at 10.24.05.png"
+  },
+  {
+   "id": "IMG4",
+   "file": "Screenshot (44).png"
+  },
+  {
+   "id": "IMG5",
+   "file": "IMG_20261014_101532.png"
+  },
+  {
+   "id": "IMG6",
+   "file": "Screenshot (53).png"
+  },
+  {
+   "id": "IMG7",
+   "file": "IMG_20261014_102210.png"
+  },
+  {
+   "id": "IMG8",
+   "file": "IMG_20261014_103015.png"
+  },
+  {
+   "id": "IMG9",
+   "file": "Screenshot (47).png"
+  },
+  {
+   "id": "IMG10",
+   "file": "IMG_20261014_104630.png"
+  },
+  {
+   "id": "IMG11",
+   "file": "Screenshot (51).png"
+  }
+ ],
+ "observations": [
+  {
+   "image_id": "IMG1",
+   "screen_kind": "terminal",
+   "legible": true,
+   "visible_text": [
+    "[ec2-user@ip-172-31-38-14 ~]$ sudo dnf update -y",
+    "Nothing to do.",
+    "Complete!",
+    "[ec2-user@ip-172-31-38-14 ~]$ sudo dnf install -y httpd",
+    "httpd            x86_64   2.4.62-1.amzn2023     amazonlinux   47 k",
+    "Install  9 Packages",
+    "httpd-2.4.62-1.amzn2023.x86_64   httpd-core-2.4.62-1.amzn2023.x86_64",
+    "Complete!"
+   ],
+   "summary": "A terminal on the EC2 instance runs 'sudo dnf update -y' (nothing to do) and then 'sudo dnf install -y httpd', which installs 9 packages including httpd 2.4.62 and ends with Complete!.",
+   "key_values": [
+    {
+     "label": "package",
+     "value": "httpd-2.4.62-1.amzn2023.x86_64"
+    }
+   ]
+  },
+  {
+   "image_id": "IMG2",
+   "screen_kind": "cloud_console",
+   "legible": true,
+   "visible_text": [
+    "Successfully created bucket \"vu-cc-lab4-demo-site\"",
+    "General purpose buckets (1)",
+    "vu-cc-lab4-demo-site",
+    "Asia Pacific (Mumbai) ap-south-1",
+    "Objects can be public",
+    "October 14, 2026, 10:41:07 (UTC+05:30)"
+   ],
+   "summary": "The S3 bucket list shows a success banner for creating bucket vu-cc-lab4-demo-site in Asia Pacific (Mumbai) ap-south-1, with access 'Objects can be public'.",
+   "key_values": [
+    {
+     "label": "bucket",
+     "value": "vu-cc-lab4-demo-site"
+    },
+    {
+     "label": "region",
+     "value": "ap-south-1"
+    }
+   ]
+  },
+  {
+   "image_id": "IMG3",
+   "screen_kind": "terminal",
+   "legible": true,
+   "visible_text": [
+    "admin1@DESKTOP-66GTQQD:~$ chmod 400 lab4-key.pem",
+    "admin1@DESKTOP-66GTQQD:~$ ssh -i lab4-key.pem ec2-user@13.233.45.112",
+    "Warning: Permanently added '13.233.45.112' (ED25519) to the list of known hosts.",
+    "Amazon Linux 2023",
+    "[ec2-user@ip-172-31-38-14 ~]$"
+   ],
+   "summary": "A local terminal sets permissions on lab4-key.pem with chmod 400, connects with 'ssh -i lab4-key.pem ec2-user@13.233.45.112', accepts the host key, and reaches the Amazon Linux 2023 prompt on the instance.",
+   "key_values": [
+    {
+     "label": "public IP",
+     "value": "13.233.45.112"
+    },
+    {
+     "label": "key file",
+     "value": "lab4-key.pem"
+    }
+   ]
+  },
+  {
+   "image_id": "IMG4",
+   "screen_kind": "terminal",
+   "legible": true,
+   "visible_text": [
+    "admin1@DESKTOP-66GTQQD:~/dsa$ python3 bubble_sort.py",
+    "Enter numbers: 5 3 8 1",
+    "Sorted: [1, 3, 5, 8]"
+   ],
+   "summary": "A local terminal runs a Python bubble_sort.py script that sorts 5 3 8 1 into [1, 3, 5, 8]. It does not involve AWS.",
+   "key_values": []
+  },
+  {
+   "image_id": "IMG5",
+   "screen_kind": "cloud_console",
+   "legible": true,
+   "visible_text": [
+    "Success  Successfully initiated launch of instance (i-0a1b2c3d4e5f67890)",
+    "vu-cc-lab4-web",
+    "Amazon Linux 2023 AMI (al2023-ami-2023.6)",
+    "t2.micro",
+    "lab4-key (RSA, .pem)",
+    "launch-wizard-1 (new)",
+    "1 x 8 GiB gp3"
+   ],
+   "summary": "The 'Launch an instance' page shows a success banner for instance i-0a1b2c3d4e5f67890 named vu-cc-lab4-web, using the Amazon Linux 2023 AMI, type t2.micro, key pair lab4-key and a new security group launch-wizard-1.",
+   "key_values": [
+    {
+     "label": "instance id",
+     "value": "i-0a1b2c3d4e5f67890"
+    },
+    {
+     "label": "instance type",
+     "value": "t2.micro"
+    },
+    {
+     "label": "key pair",
+     "value": "lab4-key (RSA, .pem)"
+    }
+   ]
+  },
+  {
+   "image_id": "IMG6",
+   "screen_kind": "cloud_console",
+   "legible": true,
+   "visible_text": [
+    "Upload succeeded: 2 files, 1.3 KB",
+    "index.html",
+    "912.0 B",
+    "Succeeded",
+    "error.html",
+    "418.0 B"
+   ],
+   "summary": "The S3 upload status page for bucket vu-cc-lab4-demo-site shows 'Upload succeeded: 2 files, 1.3 KB' with index.html and error.html both marked Succeeded.",
+   "key_values": [
+    {
+     "label": "files",
+     "value": "index.html, error.html"
+    }
+   ]
+  },
+  {
+   "image_id": "IMG7",
+   "screen_kind": "cloud_console",
+   "legible": true,
+   "visible_text": [
+    "Instances (1)",
+    "vu-cc-lab4-web",
+    "i-0a1b2c3d4e5f67890",
+    "Running",
+    "t2.micro",
+    "13.233.45.112",
+    "Status checks: 2/2 checks passed",
+    "ap-south-1a"
+   ],
+   "summary": "The EC2 Instances list shows vu-cc-lab4-web (i-0a1b2c3d4e5f67890) in the Running state with public IPv4 address 13.233.45.112 and 2/2 status checks passed.",
+   "key_values": [
+    {
+     "label": "state",
+     "value": "Running"
+    },
+    {
+     "label": "public IPv4",
+     "value": "13.233.45.112"
+    }
+   ]
+  },
+  {
+   "image_id": "IMG8",
+   "screen_kind": "terminal",
+   "legible": true,
+   "visible_text": [
+    "[ec2-user@ip-172-31-38-14 ~]$ sudo systemctl start httpd",
+    "[ec2-user@ip-172-31-38-14 ~]$ sudo systemctl enable httpd",
+    "Created symlink /etc/systemd/system/multi-user.target.wants/httpd.service",
+    "[ec2-user@ip-172-31-38-14 ~]$ sudo systemctl status httpd",
+    "httpd.service - The Apache HTTP Server",
+    "Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; preset: disabled)",
+    "Active: active (running) since Tue 2026-10-14 10:29:51 UTC; 21s ago",
+    "Status: \"Started, listening on: port 80\""
+   ],
+   "summary": "On the instance, httpd is started and enabled (a systemd symlink is created), and 'systemctl status httpd' reports the Apache HTTP Server as enabled and active (running), listening on port 80.",
+   "key_values": [
+    {
+     "label": "service state",
+     "value": "active (running)"
+    }
+   ]
+  },
+  {
+   "image_id": "IMG9",
+   "screen_kind": "cloud_console",
+   "legible": true,
+   "visible_text": [
+    "Security group: sg-04c2b1a9e7f3d1122 - launch-wizard-1",
+    "Inbound rules (2)",
+    "SSH",
+    "TCP",
+    "22",
+    "0.0.0.0/0",
+    "HTTP",
+    "80"
+   ],
+   "summary": "The inbound rules of security group launch-wizard-1 (sg-04c2b1a9e7f3d1122) allow SSH on TCP port 22 and HTTP on TCP port 80 from 0.0.0.0/0.",
+   "key_values": [
+    {
+     "label": "rule",
+     "value": "SSH TCP 22 0.0.0.0/0"
+    },
+    {
+     "label": "rule",
+     "value": "HTTP TCP 80 0.0.0.0/0"
+    }
+   ]
+  },
+  {
+   "image_id": "IMG10",
+   "screen_kind": "cloud_console",
+   "legible": true,
+   "visible_text": [
+    "Edit static website hosting",
+    "Static website hosting",
+    "Enabled",
+    "Bucket hosting",
+    "index.html",
+    "error.html",
+    "Bucket website endpoint",
+    "(endpoint URL cropped out of this screenshot)"
+   ],
+   "summary": "The bucket's Properties page shows static website hosting Enabled with bucket hosting, index document index.html and error document error.html. The website endpoint URL is not visible. No bucket policy is shown.",
+   "key_values": [
+    {
+     "label": "static website hosting",
+     "value": "Enabled"
+    },
+    {
+     "label": "index document",
+     "value": "index.html"
+    }
+   ]
+  },
+  {
+   "image_id": "IMG11",
+   "screen_kind": "browser",
+   "legible": true,
+   "visible_text": [
+    "Not secure | 13.233.45.112",
+    "Hello from VU Cloud Lab 4!",
+    "Served by Apache on EC2 instance i-0a1b2c3d4e5f67890"
+   ],
+   "summary": "A browser opened at 13.233.45.112 displays a page headed 'Hello from VU Cloud Lab 4!' with the line 'Served by Apache on EC2 instance i-0a1b2c3d4e5f67890'.",
+   "key_values": [
+    {
+     "label": "URL",
+     "value": "13.233.45.112"
+    }
+   ]
+  }
+ ],
+ "analysis": {
+  "report_title": "Launching a Web Server on Amazon EC2 and Hosting a Static Website on Amazon S3",
+  "aim": "To deploy an Apache web server on an EC2 instance and host a static website using S3 static website hosting.",
+  "matches": [
+   {
+    "image_id": "IMG5",
+    "step_id": "S2",
+    "confidence": 0.96,
+    "reason": "Launch success banner with AMI, t2.micro and key pair lab4-key."
+   },
+   {
+    "image_id": "IMG9",
+    "step_id": "S3",
+    "confidence": 0.95,
+    "reason": "Inbound rules show SSH 22 and HTTP 80."
+   },
+   {
+    "image_id": "IMG7",
+    "step_id": "S4",
+    "confidence": 0.97,
+    "reason": "Instance listed as Running with public IPv4 13.233.45.112."
+   },
+   {
+    "image_id": "IMG3",
+    "step_id": "S5",
+    "confidence": 0.94,
+    "reason": "ssh -i lab4-key.pem to the instance's public IP."
+   },
+   {
+    "image_id": "IMG1",
+    "step_id": "S6",
+    "confidence": 0.95,
+    "reason": "dnf update and dnf install httpd."
+   },
+   {
+    "image_id": "IMG8",
+    "step_id": "S7",
+    "confidence": 0.96,
+    "reason": "systemctl start/enable/status httpd shows active (running)."
+   },
+   {
+    "image_id": "IMG11",
+    "step_id": "S8",
+    "confidence": 0.86,
+    "reason": "Browser at the instance IP shows the custom page; creating index.html itself is not shown."
+   },
+   {
+    "image_id": "IMG2",
+    "step_id": "S9",
+    "confidence": 0.95,
+    "reason": "Bucket creation success banner."
+   },
+   {
+    "image_id": "IMG6",
+    "step_id": "S10",
+    "confidence": 0.96,
+    "reason": "Upload status lists index.html and error.html."
+   },
+   {
+    "image_id": "IMG10",
+    "step_id": "S11",
+    "confidence": 0.83,
+    "reason": "Static website hosting enabled; no bucket policy visible."
+   },
+   {
+    "image_id": "IMG4",
+    "step_id": "NONE",
+    "confidence": 0.9,
+    "reason": "Python bubble sort run, unrelated to this AWS experiment."
+   }
+  ],
+  "steps": [
+   {
+    "step_id": "S1",
+    "coverage": "none",
+    "explanation": "",
+    "evidence": [],
+    "gap": "A screenshot of the AWS Management Console with the EC2 dashboard open."
+   },
+   {
+    "step_id": "S2",
+    "coverage": "full",
+    "explanation": "An EC2 instance named vu-cc-lab4-web was launched using the Amazon Linux 2023 AMI with instance type t2.micro. A new RSA key pair, lab4-key, was selected, and the console confirmed the launch of instance i-0a1b2c3d4e5f67890.",
+    "evidence": [
+     {
+      "image_id": "IMG5",
+      "quote": "Successfully initiated launch of instance (i-0a1b2c3d4e5f67890)"
+     },
+     {
+      "image_id": "IMG5",
+      "quote": "t2.micro"
+     },
+     {
+      "image_id": "IMG5",
+      "quote": "lab4-key (RSA, .pem)"
+     }
+    ],
+    "gap": ""
+   },
+   {
+    "step_id": "S3",
+    "coverage": "full",
+    "explanation": "The security group launch-wizard-1 (sg-04c2b1a9e7f3d1122) was configured with two inbound rules: SSH on TCP port 22 and HTTP on TCP port 80, both from 0.0.0.0/0.",
+    "evidence": [
+     {
+      "image_id": "IMG9",
+      "quote": "Inbound rules (2)"
+     },
+     {
+      "image_id": "IMG9",
+      "quote": "sg-04c2b1a9e7f3d1122"
+     }
+    ],
+    "gap": ""
+   },
+   {
+    "step_id": "S4",
+    "coverage": "full",
+    "explanation": "The Instances page shows vu-cc-lab4-web in the Running state with public IPv4 address 13.233.45.112, and both status checks passed.",
+    "evidence": [
+     {
+      "image_id": "IMG7",
+      "quote": "Running"
+     },
+     {
+      "image_id": "IMG7",
+      "quote": "13.233.45.112"
+     },
+     {
+      "image_id": "IMG7",
+      "quote": "Status checks: 2/2 checks passed"
+     }
+    ],
+    "gap": ""
+   },
+   {
+    "step_id": "S5",
+    "coverage": "full",
+    "explanation": "The key file permissions were restricted with chmod 400, and an SSH session was opened to ec2-user@13.233.45.112 using lab4-key.pem, reaching the Amazon Linux 2023 shell prompt.",
+    "evidence": [
+     {
+      "image_id": "IMG3",
+      "quote": "chmod 400 lab4-key.pem"
+     },
+     {
+      "image_id": "IMG3",
+      "quote": "ssh -i lab4-key.pem ec2-user@13.233.45.112"
+     }
+    ],
+    "gap": ""
+   },
+   {
+    "step_id": "S6",
+    "coverage": "full",
+    "explanation": "System packages were updated with sudo dnf update -y, and the Apache web server was installed with sudo dnf install -y httpd, which installed httpd 2.4.62 along with its dependencies.",
+    "evidence": [
+     {
+      "image_id": "IMG1",
+      "quote": "sudo dnf install -y httpd"
+     },
+     {
+      "image_id": "IMG1",
+      "quote": "httpd-2.4.62-1.amzn2023.x86_64"
+     }
+    ],
+    "gap": ""
+   },
+   {
+    "step_id": "S7",
+    "coverage": "full",
+    "explanation": "The httpd service was started and enabled at boot. systemctl status reports it as active (running) and listening on port 80.",
+    "evidence": [
+     {
+      "image_id": "IMG8",
+      "quote": "sudo systemctl enable httpd"
+     },
+     {
+      "image_id": "IMG8",
+      "quote": "Active: active (running)"
+     },
+     {
+      "image_id": "IMG8",
+      "quote": "listening on: port 80"
+     }
+    ],
+    "gap": ""
+   },
+   {
+    "step_id": "S8",
+    "coverage": "partial",
+    "explanation": "Opening the instance's public IP 13.233.45.112 in a browser displayed the page 'Hello from VU Cloud Lab 4!', served by Apache on the EC2 instance.",
+    "evidence": [
+     {
+      "image_id": "IMG11",
+      "quote": "Hello from VU Cloud Lab 4!"
+     },
+     {
+      "image_id": "IMG11",
+      "quote": "13.233.45.112"
+     }
+    ],
+    "gap": "Creating the index.html file on the instance is not shown."
+   },
+   {
+    "step_id": "S9",
+    "coverage": "full",
+    "explanation": "An S3 bucket named vu-cc-lab4-demo-site was created in the Asia Pacific (Mumbai) ap-south-1 region.",
+    "evidence": [
+     {
+      "image_id": "IMG2",
+      "quote": "Successfully created bucket \"vu-cc-lab4-demo-site\""
+     },
+     {
+      "image_id": "IMG2",
+      "quote": "ap-south-1"
+     }
+    ],
+    "gap": ""
+   },
+   {
+    "step_id": "S10",
+    "coverage": "full",
+    "explanation": "index.html and error.html were uploaded to the bucket, and the upload status shows both files as Succeeded (2 files, 1.3 KB).",
+    "evidence": [
+     {
+      "image_id": "IMG6",
+      "quote": "Upload succeeded: 2 files, 1.3 KB"
+     }
+    ],
+    "gap": ""
+   },
+   {
+    "step_id": "S11",
+    "coverage": "partial",
+    "explanation": "Static website hosting was enabled on the bucket with index.html as the index document and error.html as the error document.",
+    "evidence": [
+     {
+      "image_id": "IMG10",
+      "quote": "Enabled"
+     },
+     {
+      "image_id": "IMG10",
+      "quote": "index.html"
+     }
+    ],
+    "gap": "The public-read bucket policy is not shown in any screenshot."
+   },
+   {
+    "step_id": "S12",
+    "coverage": "none",
+    "explanation": "",
+    "evidence": [],
+    "gap": "A browser screenshot of the S3 website endpoint loading the page."
+   }
+  ],
+  "theory": "Amazon Elastic Compute Cloud (EC2) provides resizable virtual servers, called instances, in the AWS cloud. An instance is launched from an Amazon Machine Image (AMI), which supplies the operating system, and an instance type such as t2.micro, which fixes its CPU and memory. Access is secured with a key pair, where the private key file is used for SSH login, and a security group acts as a virtual firewall that allows only the listed inbound ports, for example 22 for SSH and 80 for HTTP.\n\nApache HTTP Server (httpd) is a widely used open-source web server; on Amazon Linux it is installed with the dnf package manager and managed as a systemd service. Amazon Simple Storage Service (S3) is object storage organised into buckets whose names are globally unique. With static website hosting enabled, S3 serves HTML, CSS and image objects directly over HTTP through a website endpoint, without any server to manage. Objects must be made publicly readable, usually through a bucket policy, before the endpoint can serve them.",
+  "conclusion": "An EC2 instance running Amazon Linux 2023 was launched, secured with a security group allowing SSH and HTTP, and accessed over SSH. Apache httpd was installed, enabled and verified as running, and the custom page was served at the instance's public IP. An S3 bucket was created, the site files were uploaded and static website hosting was enabled. The bucket policy and the S3 website endpoint loading in a browser are not shown in the screenshots provided."
+ }
+}
